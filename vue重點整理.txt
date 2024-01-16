@@ -1,0 +1,39 @@
+ npm --version
+ npm i @vue/cli -g 
+vue create project1(vue ui圖形)
+npm run build 打包
+npm i serve -g 安裝 用於暫時執行打包文件
+serve <目標目錄>
+
+
+vue.config.js文件介紹 CLI用
+
+vue 組件化開發
+v-bind 是 Vue.js 中的一個指令，用於動態地綁定一個或多個屬性，":"是 v-bind 的縮寫
+ 綁定到一個屬性
+<div v-bind:id="dynamicId"></div>
+綁定到一個包含多個屬性的對象
+<div v-bind="{ id: dynamicId, class: dynamicClass }"></div>
+prop: 就是子組件用來接收父組件設置的地方
+在App.vue html上設置子組件 並攜帶參數
+可到子組件  props中 ：
+
+var_name：{
+    type : [],
+    default:,
+    required:true/false(要求父組件必須傳值，沒傳會在控制台報錯)
+}
+
+<child-component :count="pcount"></child-component>
+在模板中，你想將這個 pcount 的值傳遞給一個子組件的 count 屬性
+
+用於事件觸發(寫在子組件)
+this.$emit('child-count-change',this.childCount)
+
+寫在父祖件的子組件區塊-自定義監聽區塊
+@child-count-change="handler"
+
+router使用方式
+<router-link :to="{name: 'about'}">About</router-link>
+<router-link to="/">Home</router-link> 
+<router-link to="/about">About</router-link>
