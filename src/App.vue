@@ -1,8 +1,9 @@
 <template>
   <nav>
-    <router-link :to="{name: 'about'}">About</router-link>
+    <router-link :to="{name: 'about'}">About</router-link> |
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <!-- <router-link to="/about">About</router-link> | -->
+    <router-link :to="{ name: 'video',params:{id:30} }">video</router-link> |
   </nav>
   <router-view/>
 </template>

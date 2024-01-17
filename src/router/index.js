@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import VideoView from '../views/Video.vue'
+import VideoInfo1 from '../views/video/VideoInfo1.vue'
+import VideoInfo2 from '../views/video/VideoInfo2.vue'
 // import { compile } from 'vue'
 
 const routes = [
@@ -18,9 +20,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
-    path: '/video',
+    path: '/video/:id',
     name: 'video',
-    component: VideoView
+    component: VideoView,
+    children: [
+      { path: 'info1', name: 'video-info1', component: VideoInfo1 },
+      { path: 'info2', name: 'video-info2', component: VideoInfo2 }
+    ],
+    props: true
   }
 ]
 

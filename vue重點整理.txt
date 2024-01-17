@@ -14,15 +14,32 @@ v-bind 是 Vue.js 中的一個指令，用於動態地綁定一個或多個屬�
 <div v-bind:id="dynamicId"></div>
 綁定到一個包含多個屬性的對象
 <div v-bind="{ id: dynamicId, class: dynamicClass }"></div>
-prop: 就是子組件用來接收父組件設置的地方
+props: 就是子組件用來接收父組件設置的地方
 在App.vue html上設置子組件 並攜帶參數
 可到子組件  props中 ：
-
-var_name：{
-    type : [],
-    default:,
-    required:true/false(要求父組件必須傳值，沒傳會在控制台報錯)
+示例 props 配置：
+props: {
+  var_name: {
+    type: [String, Number], // 可以是字符串或数字
+    default: '默认值',      // 如果父组件没有提供 var_name，则使用这个默认值
+    required: true          // 父组件必须提供 var_name，否则会在控制台报错
+  }
 }
+完整示例：
+<script>
+export default {
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    count: {
+      type: Number,
+      default: 0
+    }
+  }
+}
+</script>
 
 <child-component :count="pcount"></child-component>
 在模板中，你想將這個 pcount 的值傳遞給一個子組件的 count 屬性
@@ -37,3 +54,41 @@ router使用方式
 <router-link :to="{name: 'about'}">About</router-link>
 <router-link to="/">Home</router-link> 
 <router-link to="/about">About</router-link>
+
+到index.js設置動態路由
+props: true 与动态路由（Dynamic Routing）紧密相关：
+const router = new VueRouter({
+  routes: [
+    { path: '/product/:id', component: ProductDetail }
+  ]
+})
+在这个例子中，/product/:id 是一个动态路由，:id 是一个动态片段。访问 /product/123 时，123 将作为参数 id 的值。
+通常情况下，你需要在组件内部通过 $route.params.id 来访问这个 id 参数。但是，使用 props: true 时，Vue Router 
+会将所有路由参数自动设置为组件的 props。这样做的好处是使得组件更加解耦，不再依赖于全局的 $route 对象，使得组件更容易理解和测试。
+然后在 ProductDetail 组件中，你可以直接通过 props 来访问 id：
+xport default {
+  props: ['id'],
+  // ...
+}
+<!-- ChildComponent.vue -->
+<template>
+  <div>
+    <h2>这是子组件</h2>
+    <p>从父组件接收的信息：{{ message }}</p>
+    <p>从父组件接收的计数：{{ count }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ['message', 'count']
+}
+</script>
+----------------------------------------------------------
+<router-link :to="{ name: 'video',params:{id:30} }">video</router-link> |
+:to="..."：这里使用了 v-bind:to（简写为 :to），意味着我们绑定的是一个 JavaScript 表达式或对象，而不是一个字符串。
+
+嵌入式路由
+編成試導航
+路由相關操作：router
+路由相關參數 route
